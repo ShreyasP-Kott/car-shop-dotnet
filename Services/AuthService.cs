@@ -34,7 +34,7 @@ namespace MongoConnection.Auth
 
             var token = _jwtService.GenerateToken("1", user.Email);
 
-            return new { Token = token, User = user, Message = "User successfully logged in." };
+            return new { Token = token, User = user, Message = "User logged in successfully." };
 
             
         }

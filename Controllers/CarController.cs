@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MongoConnection.Context;
-using MongoConnection.Model;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MongoConnection.Services;
-using MongoDB.Driver;
+
 
 [ApiController]
 [Route("api/cars")]
@@ -18,6 +17,7 @@ public class CarController : ControllerBase
 
 
     [HttpGet("all")]
+    [Authorize]
     public async Task<IActionResult> GetCars()
     {
         var cars = await _carService.GetAllCarsAsync();
