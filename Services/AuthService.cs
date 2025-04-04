@@ -2,6 +2,7 @@
 using MongoConnection.Model;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using JWTService;
 
 namespace MongoConnection.Auth
 {   
@@ -9,11 +10,15 @@ namespace MongoConnection.Auth
     public class AuthService
     {
         private readonly IMongoCollection<UserDetails> _users;
+        private readonly JwtTokenService _jwtService;
 
-        public AuthService(MongoDbContext dbContext)
+        public AuthService(MongoDbContext dbContext, JwtTokenService jwt)
         {
             _users = dbContext.Users;
+            _jwtService = jwt;
         }
+
+
 
         public async Task<dynamic> Authenticate(string email, string password)
         {
@@ -27,19 +32,11 @@ namespace MongoConnection.Auth
                 return  new { Message = "Invalid email or password", Token = "" };
             }
 
-            // Generate JWT token (implement this method)
-            var token = GenerateJwtToken(user);
+            var token = _jwtService.GenerateToken("1", user.Email);
 
             return new { Token = token, User = user, Message = "User successfully logged in." };
 
             
-        }
-
-
-        private string GenerateJwtToken(object user)
-        {
-            // Implement JWT token generation here
-            return "your-jwt-token";
         }
     }
 }
