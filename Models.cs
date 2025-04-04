@@ -54,4 +54,21 @@ namespace MongoConnection.Model
 
         public string ZipCode { get; set; }
     }
+
+    public class Cars
+
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        public string make { get; set; }
+        public string model { get; set; }
+        public int year { get; set; }
+        public int price { get; set; }
+        public string fuelType { get; set; }
+        public int mileage { get; set; }
+        public string color { get; set; }
+        public string[] features { get; set; }
+        public string image { get; set; }
+    }
 }
