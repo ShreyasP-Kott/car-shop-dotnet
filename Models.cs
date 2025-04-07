@@ -72,6 +72,14 @@ namespace MongoConnection.Model
         public string image { get; set; }
     }
 
+    public class Logs
+    {
+        [JsonIgnore]
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
+        public string Name { get; set; }
+    }
     public class JwtSettings
     {
         public string Key { get; set; }

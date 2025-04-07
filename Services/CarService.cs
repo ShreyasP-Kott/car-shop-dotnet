@@ -2,12 +2,12 @@
 using MongoConnection.Context;
 using MongoConnection.Model;
 
-namespace MongoConnection.Services
+namespace MongoConnection.Services.CarService
 {
     public class CarService
     {
         private readonly IMongoCollection<Cars> _cars;
-        
+
 
         public CarService(MongoDbContext dbContext)
         {

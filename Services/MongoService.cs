@@ -16,5 +16,6 @@ namespace MongoConnection.Context
         public IMongoCollection<UserDetails> Users => _database.GetCollection<UserDetails>("Users");
         public IMongoCollection<Address> Addresses => _database.GetCollection<Address>("Addresses");
         public IMongoCollection<Cars> Cars => _database.GetCollection<Cars>("Cars");
+        public IMongoCollection<Logs> Logs => _database.GetCollection<Logs>("Logs");
     }
 }
