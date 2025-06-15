@@ -60,7 +60,7 @@ namespace MongoConnection.Model
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string make { get; set; }
         public string model { get; set; }
         public int year { get; set; }

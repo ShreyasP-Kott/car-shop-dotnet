@@ -25,32 +25,27 @@ public class CarController : ControllerBase
         return Ok(cars);
     }
 
-    [HttpGet("log")]
-    public async Task<IActionResult> GetAllLogs([FromServices] LogService logger) // Example of Parameter DI
+    [HttpPost("addCar")]
+    [Authorize]
+    public async Task<IActionResult> InsertCar([FromBody] Cars carDetails)
     {
-        var logs = await logger.GetAllLogs();
-        return Ok(logs);
+        if (carDetails == null)
+        {
+            return BadRequest("Car details are required.");
+        }
+
+        var result = await _carService.InsertCarData(carDetails);
+
+        if (string.IsNullOrEmpty(result))
+        {
+            return StatusCode(500, "Failed to insert car details.");
+        }
+
+        return Ok(new { Id = result, Message = "Car details inserted successfully." });
     }
 
-    // Method Injection: service passed to a helper method
-    [HttpPost("log-maintenance")]
-    public IActionResult LogMaintenance([FromServices] LogService logger, [FromBody] Logs message)
-    {
-        PerformMaintenanceLogging(message, logger);  // Method Injection
-        return Ok("Maintenance logged.");
-    }
 
-    // This method is not part of the HTTP pipeline; injected service passed in manually
-    private  async void PerformMaintenanceLogging(Logs message, LogService logger)
-    {
-        logger.AddLog(message);
-    }
 
-    // Parameter Injection using [FromServices]
-    [HttpGet("request-id")]
-    public IActionResult GetRequestId([FromServices] IRequestIdGenerator generator)
-    {
-        return Ok(new { RequestId = generator.GetRequestId() });
-    }
+
 }
 

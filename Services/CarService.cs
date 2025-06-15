@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using MongoConnection.Context;
 using MongoConnection.Model;
+using System.Text;
 
 namespace MongoConnection.Services.CarService
 {
@@ -15,13 +16,19 @@ namespace MongoConnection.Services.CarService
         }
 
         
-
-
         // ✅ Fetch all Cars
         public async Task<List<Cars>> GetAllCarsAsync()
         {
             return await _cars.Find(_ => true).ToListAsync();
         }
+
+        public async Task<string> InsertCarData(Cars carDetails)
+        {
+            await _cars.InsertOneAsync(carDetails);
+
+            return carDetails.Id;
+        }
+
 
     }
 }
